@@ -6,14 +6,13 @@ class Patient(models.Model):
         ('f', 'Female'),
         ('m', 'Male'),
     )
-    id = models.IntegerField(unique=True,primary_key=True)
     name = models.CharField(max_length=30)
     birthday = models.DateTimeField(auto_now_add=True)
     birthplace = models.CharField(max_length=30)
     sex = models.CharField(max_length=1,choices=sex_types)
     address = models.CharField(max_length=128)
     phone= models.CharField(max_length=13)
-    email = models.CharField(max_length=30)
+    email = models.CharField(max_length=254,default="")
     social_number = models.CharField(max_length=20)
     picture = models.ImageField(max_length=100)
     comment = models.TextField()
