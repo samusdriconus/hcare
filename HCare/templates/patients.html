@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Patients</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Birth place</th>
+        <th>Address</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for patient in patients %}
+        <tr>
+          <td>
+            <a href="#">{{ patient.name }}</a>
+          </td>
+          <td class="align-middle">{{ patient.birthday }}</td>
+          <td class="align-middle">{{ patient.birthplace }}</td>
+          <td class="align-middle">{{ patient.address }}</td>
+          <td class="align-middle">{{ patient.phone }}</td>
+
+          <td></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
