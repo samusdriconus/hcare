@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Patient
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from .forms import NewPatientForm
 # Create your views here.
 @login_required
 def home(request):
@@ -21,3 +22,25 @@ def patients(request):
         patients = paginator.page(paginator.num_pages)
     paginator = Paginator(patient_list, 10)
     return render(request, 'patients.html',{'patients':patients})
+
+
+@login_required
+def patient_sheet(request, pk):
+    patient = Patient.objects.get(pk=pk)
+    return render(request, 'patient.html', {'patient': patient})
+
+
+
+@login_required
+def new_patient(request):
+    if request.method == 'POST':
+        form = NewPatientForm(request.POST)
+        if form.is_valid():
+            patient = form.save()
+            return redirect('home')
+    else:
+        form = NewPatientForm()
+    return render(request, 'new_patient.html', {'form': form})
+
+
+

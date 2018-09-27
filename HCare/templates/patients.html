@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  HCare-Patients
+{% endblock %}
+
+
 {% block breadcrumb %}
   <li class="breadcrumb-item active">Patients</li>
 {% endblock %}
 
 {% block content %}
-  <table class="table ">
+<div class="mb-4">
+  <a href="{% url 'new_patient' %}" class="btn btn-primary">New Patient</a>
+</div>
+  <table class="table">
     <thead class="thead-inverse">
       <tr>
         <th>Name</th>
@@ -20,7 +28,7 @@
       {% for patient in patients %}
         <tr>
           <td>
-            <a href="#">{{ patient.name }}</a>
+            <a href="{% url 'patient' patient.pk %}">{{ patient.name }}</a>
           </td>
           <td class="align-middle">{{ patient.birthday }}</td>
           <td class="align-middle">{{ patient.birthplace }}</td>
