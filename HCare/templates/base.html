@@ -20,11 +20,11 @@
         </button>
         <div class="collapse navbar-collapse" id="mainMenu">
          <ul class="navbar-nav mr-auto">
-             <li class="nav-item active">
-                 <a class="nav-link" href="#">Dashboard</a>
+             <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                 <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
              </li>
              <li class="nav-item">
-                    <a class="nav-link" href="{% url 'patients' %}">Patients</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'patients' %}active{% endif %}" href="{% url 'patients' %}">Patients</a>
             </li>
             <li class="nav-item">
                     <a class="nav-link" href="#">Consultations</a>
