@@ -19,7 +19,10 @@ LOGIN_URL = '/login'
 LOGOUT_REDIRECT_URL = '/login'
 LOGIN_REDIRECT_URL = '/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'media')
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
