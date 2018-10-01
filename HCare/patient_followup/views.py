@@ -3,6 +3,7 @@ from .models import Patient
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from .forms import NewPatientForm
+
 # Create your views here.
 @login_required
 def home(request):
@@ -34,7 +35,7 @@ def patient_sheet(request, pk):
 @login_required
 def new_patient(request):
     if request.method == 'POST':
-        form = NewPatientForm(request.POST)
+        form = NewPatientForm(request.POST,request.FILES)
         if form.is_valid():
             patient = form.save()
             return redirect('home')

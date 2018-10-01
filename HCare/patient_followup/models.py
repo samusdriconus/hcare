@@ -14,7 +14,7 @@ class Patient(models.Model):
     phone= models.CharField(max_length=13)
     email= models.CharField(max_length=254,default="")
     social_number = models.CharField(max_length=20)
-    picture = models.ImageField(max_length=100)
+    picture = models.ImageField()
     comment = models.TextField()
 
     def __str__(self):
