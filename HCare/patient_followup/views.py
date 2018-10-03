@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Patient
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from .forms import NewPatientForm
+from .forms import NewPatientForm,NewAppointementForm
 
 # Create your views here.
 @login_required
@@ -28,8 +28,8 @@ def patients(request):
 @login_required
 def patient_sheet(request, pk):
     patient = Patient.objects.get(pk=pk)
-    return render(request, 'patient.html', {'patient': patient})
-
+    form = NewAppointementForm()
+    return render(request, 'patient.html', {'patient': patient,'form':form})
 
 
 @login_required
