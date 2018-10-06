@@ -13,10 +13,12 @@ class NewPatientForm(forms.ModelForm):
 class NewAppointementForm(forms.ModelForm):
     class Meta:
         model = Appointement
-        DateTimeOptions = {
-            'format': 'dd/mm/yyyy HH:ii P',
-            'autoclose': True,
-            'showMeridian' : True
+        fields = ["date","duration","note"]
+        widgets = {
+            'date': forms.DateTimeInput(attrs={'type':'date'}),
         }
-        fields = '__all__'
+    
+
+
+
       

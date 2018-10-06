@@ -16,16 +16,32 @@ def image_directory_path(instance, filename):
     return u'patient/{0}'.format(filename)
 
 
+documents_storage = FileSystemStorage(
+    # Physical file location ROOT
+    location=u'{0}/documents/'.format(settings.MEDIA_ROOT),
+    # Url for file
+    base_url=u'{0}/documents/'.format(settings.MEDIA_URL),
+)
+
+
+def document_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/my_sell/picture/<filename>
+    return u'exams/{0}'.format(filename)
+
+
+
+
+
 # Create your models here.
 class Patient(models.Model):
-    sex_types = (
+    genders = (
         ('f', 'Female'),
         ('m', 'Male'),
     )
     name = models.CharField(max_length=30)
     birthday = models.DateTimeField()
     birthplace = models.CharField(max_length=30)
-    sex = models.CharField(max_length=1,choices=sex_types)
+    sex = models.CharField(max_length=1,choices=genders)
     address = models.CharField(max_length=128)
     phone= models.CharField(max_length=13)
     email= models.CharField(max_length=254,default="")
@@ -40,10 +56,65 @@ class Patient(models.Model):
 class Appointement(models.Model):
     date = models.DateTimeField(default=datetime.now())
     duration = models.IntegerField(default="15")
-    comment = models.TextField()
+    note = models.TextField()
     patient = models.ForeignKey(Patient, related_name='appointements'
-        ,on_delete=models.CASCADE,
+        ,on_delete=models.PROTECT,
     )
+
+    def __str__(self):
+        return "[" + str(self.date) + "]" + self.patient.name
+    
+
+
+
+
+class Disease(models.Model):
+    name = models.CharField(max_length=256)
+    code = models.CharField(max_length=50)
+    description = models.TextField()
+
+    def __str__(self):
+        return "[" + self.code + "] " + self.name
+    
+
+
+class MedicalExam(models.Model):
+    name = models.CharField(max_length=256)
+    date = models.DateTimeField(default = datetime.now())
+    appointement = models.ForeignKey(Appointement,on_delete=models.CASCADE)
+    diagnostic = models.TextField()
+
+
+    def __str__(self):
+        return self.name
+    
+
+
+
+class Document(models.Model):
+    name = models.CharField(max_length=256)
+    content = models.FileField(upload_to=document_directory_path,storage=documents_storage)
+    exam = models.ForeignKey(MedicalExam, related_name="documents", 
+         on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.name
+    
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
 
 
 

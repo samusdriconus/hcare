@@ -28,7 +28,14 @@ def patients(request):
 @login_required
 def patient_sheet(request, pk):
     patient = Patient.objects.get(pk=pk)
-    form = NewAppointementForm()
+    if request.method == 'POST':
+        form = NewAppointementForm(request.POST)
+        if form.is_valid():
+            appointement = form.save(commit=False)
+            appointement.patient = patient
+            form.save()
+    else:
+        form = NewAppointementForm()
     return render(request, 'patient.html', {'patient': patient,'form':form})
 
 
