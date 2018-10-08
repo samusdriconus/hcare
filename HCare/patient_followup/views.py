@@ -1,13 +1,27 @@
 from django.shortcuts import render,redirect
-from .models import Patient
+from .models import Patient,Appointement
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from .forms import NewPatientForm,NewAppointementForm
-
+from datetime import datetime, timedelta
 # Create your views here.
 @login_required
 def home(request):
-	return render(request, 'home.html')
+    today = datetime.today().date()
+    app_today = Appointement.objects.filter(date=today)
+    tomorrow = today + timedelta(days=1)
+    app_tomorrow = Appointement.objects.filter(date=tomorrow)
+    startweek = today - timedelta(days=today.weekday())
+    after_2days = today + timedelta(days=2)
+    weekend = startweek + timedelta(days=6)
+    week_apps = Appointement.objects.filter(date__range=[after_2days,weekend])
+
+    return render(request, 'home.html',
+                    {'today_app':app_today,
+                    'tomorrow_app':app_tomorrow,
+                    'week_apps' : week_apps
+                    })
+
 
 
 @login_required

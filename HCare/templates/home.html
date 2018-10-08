@@ -14,20 +14,32 @@
               <td>
                 <div class="card">
                     <div class="card-header bg-success">Today</div>
-                    <div class="card-body">Panel Content</div>
+                    <div class="card-body">
+                        {% for app in today_app %}
+                          <p>{{ app.patient.name }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
               </td>
                
               <td>
                <div class="card">
                     <div class="card-header bg-primary">Tomorrow</div>
-                    <div class="card-body">Panel Content</div>
+                    <div class="card-body">
+                      {% for app in tomorrow_app %}
+                          <p>{{ app.patient.name }}</p>
+                        {% endfor %}
+                    </div>
                  </div>
               </td>
               <td>
                   <div class="card">
                     <div class="card-header bg-info">This week</div>
-                    <div class="card-body">Panel Content</div>
+                    <div class="card-body">
+                      {% for app in week_apps %}
+                          <p>{{ app }}</p>
+                        {% endfor %}
+                    </div>
                   </div>
               </td>
           </tr>
