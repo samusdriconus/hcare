@@ -65,6 +65,8 @@ class Appointement(models.Model):
         return "[" + str(self.date) + "]" + self.patient.name
     
 
+    
+
 
 
 
@@ -83,6 +85,7 @@ class MedicalExam(models.Model):
     date = models.DateTimeField(default = datetime.now())
     appointement = models.ForeignKey(Appointement,on_delete=models.CASCADE)
     diagnostic = models.TextField()
+    disease = models.ForeignKey(Disease,on_delete=models.PROTECT)
 
 
     def __str__(self):

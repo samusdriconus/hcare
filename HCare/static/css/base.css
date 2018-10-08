@@ -1,3 +1,8 @@
  #list_btns{
      margin-bottom: 20px;
  }
+
+ .card-header{
+     color:#fff ;
+     font-weight:bold;
+ }
